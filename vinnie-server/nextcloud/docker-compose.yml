@@ -43,6 +43,7 @@ services:
       - pictures:/mnt/media/pictures
       - movies:/mnt/media/movies
       - music:/mnt/media/music
+      - nextclouddata:/var/www/html/data
     environment:
       - APACHE_DISABLE_REWRITE_IP=1
       - REDIS_HOST=nextcloud-redis
@@ -100,6 +101,9 @@ networks:
       name: nextcloud_backend
 
 volumes:
+  nextclouddata:
+    external:
+      name: nextclouddata
   pictures: 
     external:
       name: pictures

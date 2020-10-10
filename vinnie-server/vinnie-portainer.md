@@ -31,12 +31,20 @@
 `curl -fsSL https://raw.githubusercontent.com/MatchbookLab/local-persist/master/scripts/install.sh | sudo bash`
 
 ## Create storage volumes for Docker
+`docker volume create -d local-persist -o mountpoint=/mnt/media/nextclouddata --name=nextclouddata`
 
 `docker volume create -d local-persist -o mountpoint=/mnt/media/pictures --name=pictures`
 
 `docker volume create -d local-persist -o mountpoint=/mnt/media/movies --name=movies`
 
 `docker volume create -d local-persist -o mountpoint=/mnt/media/music --name=music`
+
+Make sure file permissions are set up correctly (nextcloud uses the www-data user)
+
+`chown -R www-data:root /mnt/media/nextclouddata`
+`chown -R www-data:www-data /mnt/media/pictures`
+`chown -R www-data:www-data /mnt/media/movies`
+`chown -R www-data:www-data /mnt/media/music`
 
 # Docker Compose
 <!-- https://github.com/docker/compose -->
