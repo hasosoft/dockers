@@ -99,16 +99,13 @@ networks:
     external:
       name: nextcloud_backend
 
-volumes: 
+volumes:
   pictures: 
-    driver: local-persist
-    driver_opts: 
-      mountpoint: /mnt/media/pictures
+    external:
+      name: pictures
   movies:
-    driver: local-persist
-    driver_opts: 
-      mountpoint: /mnt/media/movies
+    external:
+      name: movies
   music:
-    driver: local-persist
-    driver_opts: 
-      mountpoint: /mnt/media/music
+    external:
+      name: music
