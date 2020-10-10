@@ -41,7 +41,7 @@
 
 Make sure file permissions are set up correctly (nextcloud uses the www-data user)
 
-`chown -R www-data:root /mnt/media/nextclouddata`
+`chown -R www-data:www-data /mnt/media/nextclouddata`
 
 `chown -R www-data:www-data /mnt/media/pictures`
 
