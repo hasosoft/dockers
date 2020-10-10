@@ -6,7 +6,7 @@ services:
     command:
       #- "--log.level=DEBUG"
       - "--api.insecure=true"
-      #- "--api"
+      - "--api"
       - "--providers.docker=true"
       # - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
@@ -24,12 +24,12 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     labels: 
       # Dashboard
-      # - "traefik.http.routers.traefik.rule=Host(`traefik.harro.dev`)"
-      # - "traefik.http.routers.traefik.service=api@internal"
-      # - "traefik.http.routers.traefik.tls.certresolver=mytlschallenge"
-      # - "traefik.http.routers.traefik.entrypoints=websecure"
-      # - "traefik.http.routers.traefik.middlewares=authtraefik"
-      # - "traefik.http.middlewares.authtraefik.basicauth.users=admin:$$2y$$10$$R1j6FOThtn.40i4DNsyiK.4xUhjJOWbxuch0tBI4hNOnJyydwrjoK" # user/password
+      - "traefik.http.routers.traefik.rule=Host(`traefik.harro.dev`)" #EDIT
+      - "traefik.http.routers.traefik.service=api@internal"
+      - "traefik.http.routers.traefik.tls.certresolver=mytlschallenge"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.middlewares=authtraefik"
+      - "traefik.http.middlewares.authtraefik.basicauth.users=admin:$$2y$$10$$R1j6FOThtn.40i4DNsyiK.4xUhjJOWbxuch0tBI4hNOnJyydwrjoK" # user/password
 
       # middleware redirect
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
@@ -50,12 +50,12 @@ services:
     image: "containous/whoami"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.harro.dev`)"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.harro.dev`)" #EDIT
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls.certresolver=mytlschallenge"
       - "traefik.http.routers.whoami.tls=true"
       - "traefik.http.routers.whoami.middlewares=auth"
-      - "traefik.http.middlewares.auth.basicauth.users=user:$$2y$$10$$oQeoHo1YqgxaaYigY6fQce4RLapRjAP2RXSbBO6DgunqXKOjfDNk."
+      - "traefik.http.middlewares.auth.basicauth.users=user:$$2y$$10$$oQeoHo1YqgxaaYigY6fQce4RLapRjAP2RXSbBO6DgunqXKOjfDNk." #EDIT
 networks:
   traefik_proxy:
     external:
