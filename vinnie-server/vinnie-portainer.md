@@ -204,3 +204,16 @@ to contain your hostname and or local ip like
 ```
 
 This step is also useful when getting general untrusted domain and connection refused errors.
+
+## External Storage in nextcloud
+
+https://docs.nextcloud.com/server/20/admin_manual/configuration_files/external_storage/local.html
+
+Go to nextcloud menu -> apps, find 'External storage support' if it's not in 'Active apps' look in 'Disabled apps' and enable it.
+
+To set it up go to nextcloud menu -> settings -> Administration -> External storages
+
+Name a folder to add, select 'Local' Authentication 'None',
+Configuration is where the LOCAL path goes, so the path inside the docker container, in this case they are all mounted to /mnt/media/xxx using the same internal and external path. Click the checkbox to confirm and add more folders as needed.
+
+![external storage options](https://github.com/hasosoft/dockers/raw/vinnie-server/vinnie-server/nextcloud/nextcloud-external-storage.jpg)
