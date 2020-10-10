@@ -227,4 +227,6 @@ To set it up go to nextcloud menu -> settings -> Administration -> External stor
 Name a folder to add, select 'Local' Authentication 'None',
 Configuration is where the LOCAL path goes, so the path inside the docker container, in this case they are all mounted to /mnt/media/xxx using the same internal and external path. Click the checkbox to confirm and add more folders as needed.
 
+Click the 3 dots behind the shares to enable sharing direct links to the files, this has to be done per share.
+
 ![external storage options](https://github.com/hasosoft/dockers/raw/vinnie-server/vinnie-server/nextcloud/nextcloud-external-storage.jpg)
