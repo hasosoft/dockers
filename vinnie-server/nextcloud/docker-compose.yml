@@ -11,8 +11,8 @@ services:
     volumes:
       - /var/docker/nextcloud/mariadb:/var/lib/mysql      
     environment:
-      - MYSQL_ROOT_PASSWORD=randompasswordhere #EDIT
-      - MYSQL_PASSWORD=randompasswordhere #EDIT
+      - MYSQL_ROOT_PASSWORD=randomMYSQLROOTpasswordhere #EDIT MYSQLROOT
+      - MYSQL_PASSWORD=randomMYSQLpasswordhere #EDIT MYSQL
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_INITDB_SKIP_TZINFO=1   
@@ -26,6 +26,7 @@ services:
   nextcloud-redis:
     image: redis:latest
     container_name: nextcloud-redis
+    command: --requirepass randomREDISpasswordhere #EDIT REDIS
     networks:
       - backend
     restart: always
@@ -43,17 +44,19 @@ services:
       - movies:/mnt/media/movies
       - music:/mnt/media/music
     environment:
+      - APACHE_DISABLE_REWRITE_IP=1
       - REDIS_HOST=nextcloud-redis
-      - NEXTCLOUD_TRUSTED_DOMAINS=nextcloud.harro.dev 172.16.0.0/12 #EDIT
-      - MYSQL_PASSWORD=randompasswordhere #EDIT
+      - REDIS_HOST_PASSWORD=randomREDISpasswordhere #EDIT REDIS
+      - NEXTCLOUD_TRUSTED_DOMAINS=nextcloud.harro.dev 172.16.0.0/12 #EDIT HOST
+      - NEXTCLOUD_HOSTNAME=nextcloud.harro.dev
+      - TRUSTED_PROXIES=172.16.0.0/12
+      - MYSQL_PASSWORD=randomMYSQLpasswordhere #EDIT MYSQL
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=nextcloud-mariadb
       - NEXTCLOUD_ADMIN_USER=nextcloud
-      - NEXTCLOUD_ADMIN_PASSWORD=randompasswordhere #EDIT
-      - NEXTCLOUD_UPDATE=1
-      - APACHE_DISABLE_REWRITE_IP=1
-      - TRUSTED_PROXIES=172.16.0.0/12
+      - NEXTCLOUD_ADMIN_PASSWORD=randomNEXTCLOUDpasswordhere #EDIT NEXTCLOUD
+      - NEXTCLOUD_UPDATE=0
     depends_on:
       - nextcloud-mariadb
       - nextcloud-redis      
@@ -67,10 +70,10 @@ services:
       - "traefik.http.middlewares.nextcloud-caldav.redirectregex.replacement=https://$${1}/remote.php/dav/"
       - "traefik.http.middlewares.nextcloud-https.redirectscheme.scheme=https"
       - "traefik.http.routers.nextcloud-http.entrypoints=web"
-      - "traefik.http.routers.nextcloud-http.rule=Host(`nextcloud.harro.dev`)" #EDIT
+      - "traefik.http.routers.nextcloud-http.rule=Host(`nextcloud.harro.dev`)" #EDIT HOST
       - "traefik.http.routers.nextcloud-http.middlewares=nextcloud-https@docker"
       - "traefik.http.routers.nextcloud.entrypoints=websecure"
-      - "traefik.http.routers.nextcloud.rule=Host(`nextcloud.harro.dev`)" #EDIT
+      - "traefik.http.routers.nextcloud.rule=Host(`nextcloud.harro.dev`)" #EDIT HOST
       - "traefik.http.routers.nextcloud.middlewares=nextcloud-caldav@docker"
       - "traefik.http.routers.nextcloud.tls=true"
       - "traefik.http.routers.nextcloud.tls.certresolver=mytlschallenge"

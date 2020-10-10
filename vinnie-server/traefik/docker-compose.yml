@@ -3,6 +3,7 @@ services:
   traefik:
     image: "traefik:latest"
     container_name: "traefik2"
+    restart: unless-stopped
     command:
       #- "--log.level=DEBUG"
       - "--api.insecure=true"
